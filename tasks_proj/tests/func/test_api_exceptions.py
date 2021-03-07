@@ -1,8 +1,8 @@
 import pytest
 import tasks
-from tasks import Task
 
-# an option to register custom marks, to aviod wornings
+
+# an option to register custom marks, to aviod warnings
 # def pytest_configure(config):
 #     config.addinivalue_line(
 #         "markers", "env(name): mark test to run only on named environment"
