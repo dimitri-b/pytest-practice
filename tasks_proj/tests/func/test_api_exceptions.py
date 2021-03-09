@@ -44,3 +44,17 @@ def test_task_listing():
     """
     with pytest.raises(TypeError):
         tasks.list_tasks(owner=123)
+
+
+class TestUpdate():
+    """Test expected exceptions when using task.update()"""
+
+    def test_bad_id(self):
+        """Non-int ID should raise a TypeError"""
+        with pytest.raises(TypeError):
+            tasks.update(task_id={'dict instead of int': 42}, task=tasks.Task())
+
+    def test_bad_task(self):
+        """Non-task as a param should raise an exception"""
+        with pytest.raises(TypeError):
+            tasks.update(task_id=1, task='str instead of task')
