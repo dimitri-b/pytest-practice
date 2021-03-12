@@ -33,7 +33,7 @@ def add(task):  # type: (Task) -> int
     # if not isinstance(task.done, bool):
     #     raise ValueError('task.done must be True or False')
     if task.id is not None:
-        raise ValueError('task.id must None')
+        raise ValueError('task.id must be None')
     if _tasksdb is None:
         raise UninitializedDatabase()
     task_id = _tasksdb.add(task._asdict())

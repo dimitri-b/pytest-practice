@@ -1,5 +1,7 @@
 import pytest
 import tasks
+from tasks import Task
+from tasks.api import UninitializedDatabase
 
 
 # an option to register custom marks, to aviod warnings
@@ -46,8 +48,18 @@ def test_task_listing():
         tasks.list_tasks(owner=123)
 
 
+def test_uninit_db_error():
+    with pytest.raises(UninitializedDatabase):
+        tasks.unique_id()
+
+
 class TestUpdate():
     """Test expected exceptions when using task.update()"""
+
+    def test_forced_id(self):
+        """Should not work if id is specified instead of auto-generated"""
+        with pytest.raises(ValueError):
+            tasks.add(Task(id=42))
 
     def test_bad_id(self):
         """Non-int ID should raise a TypeError"""
