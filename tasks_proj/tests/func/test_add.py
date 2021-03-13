@@ -17,6 +17,15 @@ def test_add_returns_valid_id(tasks_db):
     assert isinstance(task_id, int)
 
 
+def test_add_increase_count(db_with_3_tasks):
+    """Adding another task should increase count by one"""
+    # GIVEN initial database with 3 tasks
+    # WHEN another task is added
+    tasks.add(Task("foo bar"))
+    # THEN the count should be 4
+    assert tasks.count() == 4
+
+
 # the tasks below require an initialised tasks database
 
 # def test_add_returns_valid_id():
