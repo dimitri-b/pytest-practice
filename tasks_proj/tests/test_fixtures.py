@@ -1,6 +1,21 @@
 import pytest
 
 
+@pytest.fixture(scope='module')
+def a_list():
+    print('\n----- start -----')
+    yield list(range(10))
+    print('\n----- end ------')
+
+
+def test_list_1(a_list):
+    assert len(a_list) == 10
+
+
+def test_list_2(a_list):
+    assert len(a_list) == 10
+
+
 @pytest.fixture()
 def mixed_tuple():
     return (42, 'foo', None, {'bar': 23})

@@ -56,6 +56,7 @@ def tasks_just_a_few():
 
 @pytest.fixture()
 def tasks_multiple_per_owner():
+    """Return a tuple of tasks, with multiple tasks per owner"""
     return (
         Task("foo", "Alice", False),
         Task("bar", "Alice", True),
@@ -75,11 +76,14 @@ def tasks_multiple_per_owner():
 # note how it takes tasks_db param to trigger db init
 @pytest.fixture()
 def db_with_3_tasks(tasks_db, tasks_just_a_few):
+    """Initialise tasks db with 3 tasks"""
     for t in tasks_just_a_few:
         tasks.add(t)
 
 
 @pytest.fixture()
 def db_with_multi_tasks(tasks_db, tasks_multiple_per_owner):
+    """Initialise tasks db with multiple tasks per owner"""
+    
     for t in tasks_multiple_per_owner:
         tasks.add(t)
