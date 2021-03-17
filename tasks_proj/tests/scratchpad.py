@@ -1,14 +1,31 @@
 # import sys
-import os
-# import random
+# import os
+# # import random
 import sys
 
-print('------')
-for p in sys.path:
-    print(p)
-print('------')
-print(os.getcwd())
-print('------')
+FATAL_ERRORS = (KeyError, NameError)
+
+xs = {'foo': 'bar'}
+try:
+    x = xs['foo']
+    # z = y/42
+    # y = xs['baz']
+    print("no error")
+except Exception as err:
+    if isinstance(err, FATAL_ERRORS):
+        print('fatal error')
+        sys.exit(1)
+    else:
+        print('other error')
+        sys.exit(1)
+
+
+# print('------')
+# for p in sys.path:
+#     print(p)
+# print('------')
+# print(os.getcwd())
+# print('------')
 
 # file_path = 'junk/stuff.txt'
 # file_path = (
