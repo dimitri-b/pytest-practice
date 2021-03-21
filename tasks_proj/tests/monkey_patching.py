@@ -8,11 +8,11 @@ The three functions below read and write a config file into
 user's home directory. They don't return anything, instead they
 use side effects (write/read files), so they cannot be tested
 by examining their return values.
-A simple option would be to write a sample output and test how
+A simple option would be to write a sample config file and test how
 the read function handles it, but that would overwrite the actual
 file needed by production code.
 Monkeypatching allows patching functions and changing some of
-their functionality to avoid risky or undesirable interations
+their functionality to avoid risky or undesirable interactions
 with production assets.
 Note: os.path.expanduser(path_str) will expand any user home dir
 vars like '~' to a full path from root.
@@ -38,7 +38,7 @@ def write_default_config():
 
 _default_config = {
     'run_env': 'prod',
-    'txt_table': 'prod_transaction_details',
+    'txn_table': 'prod_transaction_details',
     'cust_table': 'prod_customer_details',
 }
 
@@ -112,7 +112,8 @@ def test_config_change_defaults(tmpdir, monkeypatch):
     config_before_mod = copy.deepcopy(_default_config)
     # overwrite default config dictionary values and write them to file
     monkeypatch.setitem(_default_config, 'run_env', 'dev')
-    monkeypatch.setitem(_default_config, 'txt_table', 'dev_transactions')
+    monkeypatch.setitem(_default_config, 'txn_table', 'dev_transactions')
+    print(_default_config)
     config_modified = _default_config
     write_default_config()
     # test if modified defaults were written to config file
