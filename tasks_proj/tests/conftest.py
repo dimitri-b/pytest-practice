@@ -12,6 +12,8 @@ import pytest
 import tasks
 from tasks import Task
 
+import redundant_math
+
 
 # tasks db to last for the whole testing session
 # uses tmpdir_factory instead of tmpdir, because factory is of session scope
@@ -86,3 +88,12 @@ def db_with_multi_tasks(tasks_db, tasks_multiple_per_owner):
     """Initialise tasks db with multiple tasks per owner"""
     for t in tasks_multiple_per_owner:
         tasks.add(t)
+
+
+@pytest.fixture(autouse=True)
+def add_redundant_math_abbr(doctest_namespace):
+    """For --doctest-modules tests to parse doctest examples properly,
+    put abbreviated module name, as it appears in the module's
+    example import statement, into namespace
+    """
+    doctest_namespace['rm'] = redundant_math
