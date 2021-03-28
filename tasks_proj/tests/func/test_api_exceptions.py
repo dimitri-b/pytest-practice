@@ -54,6 +54,21 @@ def test_uninit_db_error():
         tasks.unique_id()  # any function accessing database will do
 
 
+@pytest.mark.usefixtures('tasks_db')
+class TestAdd():
+    """Tests related to adding tasks"""
+
+    def test_missing_summary(self):
+        """Should raise an exception if task summary is missing"""
+        with pytest.raises(ValueError):
+            tasks.add(Task(owner="George"))
+
+    def test_done_not_bool(self):
+        """Should raise an exception if 'done' is not of boolean type"""
+        with pytest.raises(ValueError):
+            tasks.add(Task(summary='foo', done='True'))
+
+
 class TestUpdate():
     """Test expected exceptions when using task.update()"""
 
