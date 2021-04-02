@@ -17,11 +17,11 @@ import redundant_math
 
 # tasks db to last for the whole testing session
 # uses tmpdir_factory instead of tmpdir, because factory is of session scope
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def tasks_db_session(tmpdir_factory):
     """Initialise tasks db for the session, disconnect after"""
-    temp_dir = tmpdir_factory.mktemp('temp')
-    tasks.start_tasks_db(str(temp_dir), 'tiny')
+    temp_dir = tmpdir_factory.mktemp("temp")
+    tasks.start_tasks_db(str(temp_dir), "tiny")
     yield
     tasks.stop_tasks_db
 
@@ -96,7 +96,7 @@ def add_redundant_math_abbr(doctest_namespace):
     put abbreviated module name, as it appears in the module's
     example import statement, into namespace
     """
-    doctest_namespace['rm'] = redundant_math
+    doctest_namespace["rm"] = redundant_math
 
 
 # ---- plugin prototyping ----
@@ -105,25 +105,22 @@ def add_redundant_math_abbr(doctest_namespace):
 # adds new command line option: --nice
 def pytest_addoption(parser):
     """Add CLI option to show politically correct outcomes"""
-    group = parser.getgroup('nice')
+    group = parser.getgroup("nice")
     group.addoption(
-        "--nice",
-        action='store_true',
-        help='less offensive language for error messages'
+        "--nice", action="store_true", help="less offensive language for error messages"
     )
 
 
 # pytest hook function, uses new --nice option to modify test results status message
 def pytest_report_header(config):
     """Using hook to override default status message"""
-    if config.getoption('nice'):
-        return 'Thank you for testing'
+    if config.getoption("nice"):
+        return "Thank you for testing"
 
 
-# pytest hook function, uses new --nice option to modify test failure flags: 
+# pytest hook function, uses new --nice option to modify test failure flags:
 # F -> WN, FAILED -> WORK NEEDED
 def pytest_report_teststatus(report, config):
     """Use hook to change Fail (F) symbol in status"""
-    if report.when == 'call':
-        if report.failed and config.getoption('nice'):
-            return (report.outcome, 'WN', 'WORK NEEDED')
+    if report.when == "call" and report.failed and config.getoption("nice"):
+        return (report.outcome, "WN", "WORK NEEDED")
