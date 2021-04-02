@@ -97,30 +97,3 @@ def add_redundant_math_abbr(doctest_namespace):
     example import statement, into namespace
     """
     doctest_namespace["rm"] = redundant_math
-
-
-# ---- plugin prototyping ----
-# using pytest hook functions to intercept pytest calls and modify behaviour
-
-# adds new command line option: --nice
-def pytest_addoption(parser):
-    """Add CLI option to show politically correct outcomes"""
-    group = parser.getgroup("nice")
-    group.addoption(
-        "--nice", action="store_true", help="less offensive language for error messages"
-    )
-
-
-# pytest hook function, uses new --nice option to modify test results status message
-def pytest_report_header(config):
-    """Using hook to override default status message"""
-    if config.getoption("nice"):
-        return "Thank you for testing"
-
-
-# pytest hook function, uses new --nice option to modify test failure flags:
-# F -> WN, FAILED -> WORK NEEDED
-def pytest_report_teststatus(report, config):
-    """Use hook to change Fail (F) symbol in status"""
-    if report.when == "call" and report.failed and config.getoption("nice"):
-        return (report.outcome, "WN", "WORK NEEDED")
