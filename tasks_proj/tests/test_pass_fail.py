@@ -1,9 +1,10 @@
 import pytest
 
-def test_this_passes():
+
+def test_this_passes():  # sourcery skip: simplify-numeric-comparison
     assert 2 * 2 == 4
 
 
-@pytest.mark.skip
-def test_this_fails():
+@pytest.mark.xfail
+def test_this_fails():  # sourcery skip: simplify-numeric-comparison
     assert 2 * 2 != 4
