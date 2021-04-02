@@ -14,11 +14,17 @@ try:
 except Exception as err:
     if isinstance(err, FATAL_ERRORS):
         print('fatal error')
-        sys.exit(1)
     else:
         print('other error')
-        sys.exit(1)
+    sys.exit(1)
 
+
+# checking mypy linting
+def add_some(x: int, y: int) -> str:
+    return str(x + y)
+
+
+add_some(2, 3).isnumeric()
 
 # print('------')
 # for p in sys.path:
