@@ -23,4 +23,4 @@ def pytest_report_header(config):
 def pytest_report_teststatus(report, config):
     """Use hook to change Fail (F) symbol in status"""
     if report.when == "call" and report.failed and config.getoption("nice"):
-        return (report.outcome, "WN", "WORK NEEDED")
+        return (report.outcome, "NW", "NEEDS WORK")
