@@ -3,9 +3,9 @@
 # this module contains shared fixtures for use by all tests in this dir and its subdirs
 
 # Reminder of Task constructor interface
-# # Task(summary=None, owner=None, done=False, id=None) ​ ​ ​
-# # summary is required ​ ​ ​
-# # owner and done are optional ​ ​ ​
+# # Task(summary=None, owner=None, done=False, id=None)
+# # summary is required
+# # owner and done are optional
 # # id is set by database
 
 import pytest
@@ -25,6 +25,7 @@ def tasks_db_session(tmpdir_factory):
     temp_dir = tmpdir_factory.mktemp("temp")
     tasks.start_tasks_db(str(temp_dir), "tiny")
     yield
+    # noinspection PyStatementEffect
     tasks.stop_tasks_db
 
 
