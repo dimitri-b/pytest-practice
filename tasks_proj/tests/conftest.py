@@ -12,12 +12,14 @@ import pytest
 import tasks
 from tasks import Task
 
-import redundant_math
+from learning import redundant_math
 
 
 # tasks db to last for the whole testing session
 # uses tmpdir_factory instead of tmpdir, because factory is of session scope
-@pytest.fixture(scope="session")
+# here use smaller scope to avoid errors in tests sharing this fixture
+# @pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def tasks_db_session(tmpdir_factory):
     """Initialise tasks db for the session, disconnect after"""
     temp_dir = tmpdir_factory.mktemp("temp")
