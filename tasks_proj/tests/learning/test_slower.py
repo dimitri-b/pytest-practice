@@ -4,6 +4,8 @@ import time
 import random
 
 
+# TODO: the fixture raises ERROR on teardown instead of failing the test,
+# re-do it to make it fail instead (also ask Brian)
 @pytest.fixture(autouse=True)
 def check_duration(request, cache):
     """Fixture to track run times for each subsequent test, compare to previous,
