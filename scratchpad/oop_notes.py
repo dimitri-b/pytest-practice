@@ -3,6 +3,7 @@ class MyClass(object):
 
 
 class SomeError(Exception):
+    """Sample exception."""
     pass
 
 
