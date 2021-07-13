@@ -3,7 +3,6 @@ class MyClass(object):
 
 
 class SomeError(Exception):
-    """Dummy exception."""
     pass
 
 
