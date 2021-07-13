@@ -13,7 +13,7 @@ def show_problem(problem):
     print(f"we have a problem: {problem}", file=sys.stderr)
 
 
-# test function uses built-in capsys fixture to acess stoud data
+# test function uses built-in capsys fixture to access stdout data
 def test_greeting(capsys):
     greeting('Earthling')
     out, err = capsys.readouterr()
@@ -37,4 +37,4 @@ def test_show_problem(capsys):
 def test_capsys_disabled(capsys):
     with capsys.disabled():
         print('\nThis is always printed, not captured by capsys')
-    print('This is captured, not printend during testing')
+    print('This is captured, not printed during testing')
