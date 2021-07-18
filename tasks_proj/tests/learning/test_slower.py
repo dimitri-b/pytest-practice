@@ -4,8 +4,8 @@ import time
 import random
 
 
-# TODO: the fixture raises ERROR on teardown instead of failing the test,
-# re-do it to make it fail instead (also ask Brian)
+# TODO: the fixture raises assertion error instead of failing the test,
+#  re-do it to make it fail instead (also ask Brian)
 @pytest.fixture(autouse=True)
 def check_duration(request, cache):
     """Fixture to track run times for each subsequent test, compare to previous,
@@ -19,9 +19,11 @@ def check_duration(request, cache):
     this_duration = (stop_time - start_time).total_seconds()
     last_duration = cache.get(key, None)
     cache.set(key, this_duration)
+    # this is not a test, just a plain assertion, it will raise an error, not test-fail
+    n: int = 20
     if last_duration is not None:
-        assert this_duration <= (last_duration * 2), \
-            "Test duration is more that x2 longer than previous run"
+        assert this_duration <= (last_duration * n), \
+            f"Test duration is more that {n} times longer than previous run"
 
 
 # test the fixture
